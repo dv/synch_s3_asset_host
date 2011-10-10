@@ -52,7 +52,7 @@
 #   while g.next?
 #     puts g.next
 #   end
-#   
+#
 class Generator
   include Enumerable
 
@@ -92,13 +92,10 @@ class Generator
     if Thread.current != @loop_thread
       raise "should be called in Generator.new{|g| ... }"
     end
-    Thread.critical = true
     begin
       @queue << value
       @main_thread.wakeup
       Thread.stop
-    ensure
-      Thread.critical = false
     end
     self
   end
@@ -109,7 +106,6 @@ class Generator
       if @main_thread
         raise "should not be called in Generator.new{|g| ... }"
       end
-      Thread.critical = true
       begin
         @main_thread = Thread.current
         @loop_thread.wakeup
@@ -118,7 +114,6 @@ class Generator
         # ignore
       ensure
         @main_thread = nil
-        Thread.critical = false
       end
     end
     @queue.empty?

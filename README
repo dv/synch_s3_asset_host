@@ -1,1 +1,5 @@
-The documentation for this project is in docs/index.html
+Updated the original code to function with Ruby 1.9.
+
+Resources:
+* Uses the s3sync.rb code from https://github.com/miloops/s3sync
+* Forked from the unmaintained original at https://github.com/spatten/synch_s3_asset_host
